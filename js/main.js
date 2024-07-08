@@ -75,7 +75,7 @@ function agregarProducto() {
 
         productos.push(nuevoProducto);
 
-        // Incrementar el ID para el siguiente producto
+        
         siguienteId++;
 
         console.log("Producto agregado:", nuevoProducto);
@@ -117,7 +117,7 @@ function restarUnidades() {
     }
 }
 
-// Llamar a la función de gestión de productos si el usuario inicia sesión correctamente
+
 if (login()) {
     gestionProductos();
 }
