@@ -10,64 +10,92 @@
 
 /* inicio de seccion */
 
-function login(){
+function login() {
     const name = "ALVARO";
-    const password ="12345";
+    const password = "12345";
 
-    const username = prompt("introduce tu nombre de usuario");
-    const userpasswor =prompt("introduce tu contraseña");
+    const username = prompt("Introduce tu nombre de usuario:");
+    const userpassword = prompt("Introduce tu contraseña:");
 
-    console.log( "nombre de usuario ingresado:", username)
-    console.log("contraseña ingresada:", userpasswor)
+    console.log("Nombre de usuario ingresado:", username);
+    console.log("Contraseña ingresada:", userpassword);
 
-    if(username == name && userpasswor == password) {
+    if (username === name && userpassword === password) {
         console.log("Validación exitosa. Usuario autenticado.");
-        alert("inicio de seccion exitoso. bienvenido, alvaro!");
+        alert("Inicio de sesión exitoso. ¡Bienvenido, ALVARO!");
+        return true;
     } else {
         console.log("Validación fallida. Nombre de usuario o contraseña incorrectos.");
-        alert("nombre de usuario o contraseña incorrectos.")
+        alert("Nombre de usuario o contraseña incorrectos.");
+        return false;
     }
 }
 
-login();
+// Array de productos
+let productos = [];
+let siguienteId = 1;
 
-//array de productos
-const productos = [];
-const siguienteid = 1;
+// Función principal para interactuar con el usuario
+function gestionProductos() {
+    while (true) {
+        const opcion = prompt("¿Qué deseas hacer?\n1. Agregar un nuevo producto\n2. Restar unidades de un producto\n3. Mostrar todos los productos\n4. Salir");
 
-//funcion para agregar un producto
-function agregarProducto(){
-    const nombreProducto = prompt("introduce el nombre del producto:");
-    const cantidadProducto = prompt("introduce la cantidad inicial del producto");
-
-    if(nombreProducto && !isNaN(cantidadProducto) && cantidadProducto > 0 ){
-        const nuevoProducto = {
-            id: siguienteid,
-            nombre: nombreProducto,
-            cantidad:cantidadProducto
+        switch (opcion) {
+            case "1":
+                agregarProducto();
+                mostrarProductos();
+                break;
+            case "2":
+                restarUnidades();
+                mostrarProductos();
+                break;
+            case "3":
+                mostrarProductos();
+                break;
+            case "4":
+                console.log("Saliendo de la gestión de productos.");
+                return;
+            default:
+                alert("Opción no válida. Por favor, elige 1, 2, 3 o 4.");
         }
+    }
+}
+
+// Función para agregar un producto
+function agregarProducto() {
+    const nombreProducto = prompt("Introduce el nombre del producto:");
+    const cantidadProducto = parseInt(prompt("Introduce la cantidad inicial del producto:"), 10);
+
+    if (nombreProducto && !isNaN(cantidadProducto) && cantidadProducto > 0) {
+        const nuevoProducto = {
+            id: siguienteId,
+            nombre: nombreProducto,
+            cantidad: cantidadProducto
+        };
 
         productos.push(nuevoProducto);
-    
 
-        console.log("producto agregado:", nuevoProducto);
-        console.log("productos actializados:", productos);
-    }else {
+        // Incrementar el ID para el siguiente producto
+        siguienteId++;
+
+        console.log("Producto agregado:", nuevoProducto);
+        console.log("Productos actualizados:", productos);
+    } else {
         alert("Por favor, ingresa un nombre válido y una cantidad mayor a 0.");
     }
 }
 
-
-//funcion para mostrar los productos
+// Función para mostrar todos los productos
 function mostrarProductos() {
     console.log("Lista de productos:");
-    productos.forEach(producto => {
-        console.log(`ID: ${producto.id}, Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}`);
-    });
+    if (productos.length === 0) {
+        console.log("No hay productos en la lista.");
+    } else {
+        productos.forEach(producto => {
+            console.log(`ID: ${producto.id}, Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}`);
+        });
+    }
 }
-
-agregarProducto();
-mostrarProductos();
 
 // Función para restar unidades de un producto
 function restarUnidades() {
@@ -89,26 +117,8 @@ function restarUnidades() {
     }
 }
 
-function gestionProductos() {
-    while (true) {
-        const opcion = prompt("¿Qué deseas hacer?\n1. Agregar un nuevo producto\n2. Restar unidades de un producto\n3. Salir");
-
-        switch(opcion) {
-            case "1":
-                agregarProducto();
-                mostrarProductos();
-                break;
-            case "2":
-                restarUnidades();
-                mostrarProductos();
-                break;
-            case "3":
-                console.log("Saliendo de la gestión de productos.");
-                return;
-            default:
-                alert("Opción no válida. Por favor, elige 1, 2 o 3.");
-        }
-    }
+// Llamar a la función de gestión de productos si el usuario inicia sesión correctamente
+if (login()) {
+    gestionProductos();
 }
 
-gestionProductos();
