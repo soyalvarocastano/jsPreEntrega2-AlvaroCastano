@@ -1,0 +1,17 @@
+body{
+    background-color: black;
+}
+
+#title{
+color: white;
+padding: 10px;
+margin: 10px;
+text-align: center;
+}
+
+#description{
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}

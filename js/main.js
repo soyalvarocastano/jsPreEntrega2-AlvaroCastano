@@ -10,7 +10,7 @@
 
 /* inicio de seccion */
 
-function login() {
+/* function login() {
     const name = "ALVARO";
     const password = "12345";
 
@@ -29,16 +29,16 @@ function login() {
         alert("Nombre de usuario o contraseña incorrectos.");
         return false;
     }
-}
+} */
 
 // Array de productos
-let productos = [];
-let siguienteId = 1;
+/* let productos = [];
+let siguienteId = 1; */
 
 // Función principal para interactuar con el usuario
-function gestionProductos() {
+/* function gestionProductos() {
     while (true) {
-        const opcion = prompt("¿Qué deseas hacer?\n1. Agregar un nuevo producto\n2. Restar unidades de un producto\n3. Mostrar todos los productos\n4. Salir");
+        const opcion = prompt("¿Qué deseas hacer?\n1. Agregar un nuevo producto\n2. Restar unidades de un producto\n3. Sumar unidades de un producto\n4. Mostrar todos los productos\n5. Salir");
 
         switch (opcion) {
             case "1":
@@ -50,19 +50,23 @@ function gestionProductos() {
                 mostrarProductos();
                 break;
             case "3":
+                sumarUnidades();
                 mostrarProductos();
                 break;
             case "4":
+                mostrarProductos();
+                break;
+            case "5":
                 console.log("Saliendo de la gestión de productos.");
                 return;
             default:
-                alert("Opción no válida. Por favor, elige 1, 2, 3 o 4.");
+                alert("Opción no válida. Por favor, elige 1, 2, 3, 4 O 5 ");
         }
     }
-}
+} */
 
 // Función para agregar un producto
-function agregarProducto() {
+/* function agregarProducto() {
     const nombreProducto = prompt("Introduce el nombre del producto:");
     const cantidadProducto = parseInt(prompt("Introduce la cantidad inicial del producto:"), 10);
 
@@ -83,22 +87,21 @@ function agregarProducto() {
     } else {
         alert("Por favor, ingresa un nombre válido y una cantidad mayor a 0.");
     }
-}
+} */
 
 // Función para mostrar todos los productos
-function mostrarProductos() {
-    console.log("Lista de productos:");
+/* function mostrarProductos() {
     if (productos.length === 0) {
         console.log("No hay productos en la lista.");
     } else {
         productos.forEach(producto => {
-            console.log(`ID: ${producto.id}, Nombre: ${producto.nombre}, Cantidad: ${producto.cantidad}`);
+            alert(`ID: ${producto.id},  Nombre: ${producto.nombre},  Cantidad: ${producto.cantidad}`);
         });
     }
-}
+} */
 
 // Función para restar unidades de un producto
-function restarUnidades() {
+/* function restarUnidades() {
     const idProducto = parseInt(prompt("Introduce el ID del producto para restar unidades:"), 10);
     const cantidadARestar = parseInt(prompt("Introduce la cantidad a restar:"), 10);
 
@@ -117,8 +120,27 @@ function restarUnidades() {
     }
 }
 
+function sumarUnidades() {
+    const idProducto = parseInt(prompt("Introduce el ID del producto para sumar unidades:"), 10);
+    const cantidadAsumar = parseInt(prompt("Introduce la cantidad a sumar:"), 10);
+
+    const producto = productos.find(p => p.id === idProducto);
+
+    if (producto) {
+        if (!isNaN(cantidadAsumar) && cantidadAsumar > 0 && producto.cantidad >= cantidadAsumar) {
+            producto.cantidad += cantidadAsumar;
+            console.log(`Se han sumado ${cantidadAsumar} unidades del producto con ID ${idProducto}.`);
+            console.log("Productos actualizados:", productos);
+        } else {
+            alert("Cantidad inválida o insuficiente.");
+        }
+    } else {
+        alert("Producto no encontrado.");
+    }
+}
+
 
 if (login()) {
     gestionProductos();
 }
-
+ */
