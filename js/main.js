@@ -10,60 +10,87 @@
 
 /* inicio de seccion */
 
-/* function login() {
+
+
+const login = () => {
+
     const name = "ALVARO";
     const password = "12345";
 
-    const username = prompt("Introduce tu nombre de usuario:");
-    const userpassword = prompt("Introduce tu contraseña:");
+    const username = document.getElementById("user").value;
+    const userpassword = document.getElementById("password").value;
 
-    console.log("Nombre de usuario ingresado:", username);
-    console.log("Contraseña ingresada:", userpassword);
+    const usuario = {userName:username, userPassword: userpassword}
+    console.log(usuario)
 
     if (username === name && userpassword === password) {
-        console.log("Validación exitosa. Usuario autenticado.");
-        alert("Inicio de sesión exitoso. ¡Bienvenido, ALVARO!");
-        return true;
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        console.log("usuario guardado correctmente")
+        window.location.href = "gestion.html";
     } else {
-        console.log("Validación fallida. Nombre de usuario o contraseña incorrectos.");
         alert("Nombre de usuario o contraseña incorrectos.");
-        return false;
     }
-} */
+
+};
+
+document.getElementById("btnSingin").addEventListener("click", login);
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.location.pathname.includes("gestion.html")) {
+        initGestionPage();
+    }
+});
+
+const initGestionPage = () => {
+    loadProducts();
+    document.getElementById("addProductButton").addEventListener("click", addProduct);
+    document.getElementById("logoutButton").addEventListener("click", logout);
+};
+
+// funcion para agregar un producto 
+
+const loadProducts = () => {
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+    const tableBody = document.querySelector("table tbody");
+    tableBody.innerHTML = "";
+    products.forEach((product, index) => {
+        let row = tableBody.insertRow();
+        row.insertCell(0).innerText = index + 1;
+        row.insertCell(1).innerText = product.name;
+        row.insertCell(2).innerText = product.quantity;
+        row.insertCell(3).innerHTML = `<button class="btn btn-primary" onclick="editProduct(${index})">Editar</button>`;
+    });
+};
+
+const addProduct = () => {
+    const productName = document.getElementById("ProductName").value;
+    const productQuantity = document.getElementById("productQuantity").value;
+    if (productName && productQuantity) {
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        products.push({ name: productName, quantity: productQuantity });
+        localStorage.setItem("products", JSON.stringify(products));
+        loadProducts();
+        document.getElementById("ProductName").value = "";
+        document.getElementById("productQuantity").value = "";
+        alert("Producto agregado exitosamente.");
+    } else {
+        alert("Por favor complete todos los campos.");
+    }
+};
+
+const editProduct = (index) => {
+    // Implementar la edición del producto
+};
+
+const logout = () => {
+    localStorage.removeItem("usuario");
+    window.location.href = "index.html";
+};
+
 
 // Array de productos
 /* let productos = [];
 let siguienteId = 1; */
-
-// Función principal para interactuar con el usuario
-/* function gestionProductos() {
-    while (true) {
-        const opcion = prompt("¿Qué deseas hacer?\n1. Agregar un nuevo producto\n2. Restar unidades de un producto\n3. Sumar unidades de un producto\n4. Mostrar todos los productos\n5. Salir");
-
-        switch (opcion) {
-            case "1":
-                agregarProducto();
-                mostrarProductos();
-                break;
-            case "2":
-                restarUnidades();
-                mostrarProductos();
-                break;
-            case "3":
-                sumarUnidades();
-                mostrarProductos();
-                break;
-            case "4":
-                mostrarProductos();
-                break;
-            case "5":
-                console.log("Saliendo de la gestión de productos.");
-                return;
-            default:
-                alert("Opción no válida. Por favor, elige 1, 2, 3, 4 O 5 ");
-        }
-    }
-} */
 
 // Función para agregar un producto
 /* function agregarProducto() {
@@ -118,9 +145,9 @@ let siguienteId = 1; */
     } else {
         alert("Producto no encontrado.");
     }
-}
+} */
 
-function sumarUnidades() {
+/* function sumarUnidades() {
     const idProducto = parseInt(prompt("Introduce el ID del producto para sumar unidades:"), 10);
     const cantidadAsumar = parseInt(prompt("Introduce la cantidad a sumar:"), 10);
 
