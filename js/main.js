@@ -10,6 +10,30 @@
 
 /* inicio de seccion */
 
+/* document.addEventListener("DOMContentLoaded", () => {
+    // Solo intentar añadir event listeners si estamos en la página de inicio de sesión
+    if (document.getElementById("btnSingin")) {
+        document.getElementById("btnSingin").addEventListener("click", login);
+    }
+
+    // Si estamos en la página de gestión de productos, inicializarla
+    if (window.location.pathname.includes("gestion.html")) {
+        initGestionPage();
+    }
+}); */
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Solo intentar añadir event listeners si estamos en la página de inicio de sesión
+    const btnSingin = document.getElementById("btnSingin");
+    if (btnSingin) {
+        btnSingin.addEventListener("click", login);
+    }
+
+    // Si estamos en la página de gestión de productos, inicializarla
+    if (window.location.pathname.includes("gestion.html")) {
+        initGestionPage();
+    }
+});
 
 
 const login = () => {
@@ -32,14 +56,14 @@ const login = () => {
     }
 
 };
-
+/* 
 document.getElementById("btnSingin").addEventListener("click", login);
 
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("gestion.html")) {
         initGestionPage();
     }
-});
+}); */
 
 const initGestionPage = () => {
     loadProducts();
