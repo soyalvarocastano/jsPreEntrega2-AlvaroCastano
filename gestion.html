@@ -10,41 +10,74 @@
 </head>
 <body>
     <main class="form-signin w-100 p-md-4">
+        <h1 class="text-center">CONTROL DE STOCK</h1>
         <div class="container w-75">
             <div class="row p-md-2">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary w-auto p-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                
+                <button type="button" class="btn btn-primary w-auto p-md-2" data-bs-toggle="modal" data-bs-target="#addProductModal">
                     Agregar nuevo Producto
                 </button>
+                
+                <button type="button" class="btn btn-secondary w-auto p-md-2" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                    Editar Producto
+                </button>
+                
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo producto</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="ProductName" class="form-label">Nombre del producto</label>
-                                        <input type="text" class="form-control" id="ProductName">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="productQuantity" class="form-label">Cantidad Inicial</label>
-                                        <input type="number" class="form-control" id="productQuantity">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" id="addProductButton">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addProductModalLabel">Agregar nuevo producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="mb-3">
+                        <label for="ProductName" class="form-label">Nombre del producto</label>
+                        <input type="text" class="form-control" id="ProductName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productQuantity" class="form-label">Cantidad Inicial</label>
+                        <input type="number" class="form-control" id="productQuantity">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="addProductButton">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editProductModalLabel">Editar producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <div class="mb-3">
+                        <label for="editProductName" class="form-label">Nombre del producto</label>
+                        <input type="text" class="form-control" id="editProductName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editProductQuantity" class="form-label">Cantidad a agregar/reducir</label>
+                        <input type="number" class="form-control" id="editProductQuantity">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="editProductButton">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
             <div class="row">
                 <div class="col">
                     <table class="table">
@@ -53,11 +86,11 @@
                                 <th scope="col">#id</th>
                                 <th scope="col">Producto</th>
                                 <th scope="col">Cantidad</th>
-                                <th scope="col">Editar</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Las filas de productos se añadirán aquí dinámicamente -->
+                            
                         </tbody>
                     </table>
                 </div>

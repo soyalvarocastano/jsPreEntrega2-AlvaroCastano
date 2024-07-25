@@ -4,32 +4,19 @@
 
 1. permitir a un usuario iniciar seccion con un usuario y contraseña
 2. una vez el usuario haya iniciado seccion podra empezar a utilizar la aplicacion
-3. la aplicacion permite agregar un producto con su id, nombre, cantidad inicial, cantidad total
+3. la aplicacion permite agregar un producto con su nombre, cantidad inicial, cantidad total
 4. cuando el usuario seleccion el producto podra sacar las unidades que desee siempre y cuando hayan las cantidades necesarias
 5. se podra ver los productos que hay y cuantas cantidades hay */
 
-/* inicio de seccion */
-
-/* document.addEventListener("DOMContentLoaded", () => {
-    // Solo intentar añadir event listeners si estamos en la página de inicio de sesión
-    if (document.getElementById("btnSingin")) {
-        document.getElementById("btnSingin").addEventListener("click", login);
-    }
-
-    // Si estamos en la página de gestión de productos, inicializarla
-    if (window.location.pathname.includes("gestion.html")) {
-        initGestionPage();
-    }
-}); */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Solo intentar añadir event listeners si estamos en la página de inicio de sesión
+    
     const btnSingin = document.getElementById("btnSingin");
     if (btnSingin) {
         btnSingin.addEventListener("click", login);
     }
 
-    // Si estamos en la página de gestión de productos, inicializarla
+   
     if (window.location.pathname.includes("gestion.html")) {
         initGestionPage();
     }
@@ -56,22 +43,14 @@ const login = () => {
     }
 
 };
-/* 
-document.getElementById("btnSingin").addEventListener("click", login);
-
-document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname.includes("gestion.html")) {
-        initGestionPage();
-    }
-}); */
 
 const initGestionPage = () => {
     loadProducts();
     document.getElementById("addProductButton").addEventListener("click", addProduct);
+    document.getElementById("editProductButton").addEventListener("click", editProduct);
     document.getElementById("logoutButton").addEventListener("click", logout);
 };
 
-// funcion para agregar un producto 
 
 const loadProducts = () => {
     let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -82,14 +61,14 @@ const loadProducts = () => {
         row.insertCell(0).innerText = index + 1;
         row.insertCell(1).innerText = product.name;
         row.insertCell(2).innerText = product.quantity;
-        row.insertCell(3).innerHTML = `<button class="btn btn-primary" onclick="editProduct(${index})">Editar</button>`;
     });
 };
 
+
 const addProduct = () => {
     const productName = document.getElementById("ProductName").value;
-    const productQuantity = document.getElementById("productQuantity").value;
-    if (productName && productQuantity) {
+    const productQuantity = parseInt(document.getElementById("productQuantity").value);
+    if (productName && !isNaN(productQuantity)) {
         let products = JSON.parse(localStorage.getItem("products")) || [];
         products.push({ name: productName, quantity: productQuantity });
         localStorage.setItem("products", JSON.stringify(products));
@@ -102,8 +81,34 @@ const addProduct = () => {
     }
 };
 
-const editProduct = (index) => {
-    // Implementar la edición del producto
+
+const editProduct = () => {
+    const productName = document.getElementById("editProductName").value;
+    const productQuantity = parseInt(document.getElementById("editProductQuantity").value);
+    if (isNaN(productQuantity)) {
+        alert("Por favor ingrese una cantidad válida.");
+        return;
+    }
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+    let productFound = false;
+
+    products = products.map(product => {
+        if (product.name.toLowerCase() === productName.toLowerCase()) {
+            productFound = true;
+            product.quantity += productQuantity; 
+        }
+        return product;
+    });
+
+    if (productFound) {
+        localStorage.setItem("products", JSON.stringify(products));
+        loadProducts();
+        document.getElementById("editProductName").value = "";
+        document.getElementById("editProductQuantity").value = "";
+        alert("Producto actualizado exitosamente.");
+    } else {
+        alert("Producto no encontrado.");
+    }
 };
 
 const logout = () => {
@@ -112,86 +117,3 @@ const logout = () => {
 };
 
 
-// Array de productos
-/* let productos = [];
-let siguienteId = 1; */
-
-// Función para agregar un producto
-/* function agregarProducto() {
-    const nombreProducto = prompt("Introduce el nombre del producto:");
-    const cantidadProducto = parseInt(prompt("Introduce la cantidad inicial del producto:"), 10);
-
-    if (nombreProducto && !isNaN(cantidadProducto) && cantidadProducto > 0) {
-        const nuevoProducto = {
-            id: siguienteId,
-            nombre: nombreProducto,
-            cantidad: cantidadProducto
-        };
-
-        productos.push(nuevoProducto);
-
-        
-        siguienteId++;
-
-        console.log("Producto agregado:", nuevoProducto);
-        console.log("Productos actualizados:", productos);
-    } else {
-        alert("Por favor, ingresa un nombre válido y una cantidad mayor a 0.");
-    }
-} */
-
-// Función para mostrar todos los productos
-/* function mostrarProductos() {
-    if (productos.length === 0) {
-        console.log("No hay productos en la lista.");
-    } else {
-        productos.forEach(producto => {
-            alert(`ID: ${producto.id},  Nombre: ${producto.nombre},  Cantidad: ${producto.cantidad}`);
-        });
-    }
-} */
-
-// Función para restar unidades de un producto
-/* function restarUnidades() {
-    const idProducto = parseInt(prompt("Introduce el ID del producto para restar unidades:"), 10);
-    const cantidadARestar = parseInt(prompt("Introduce la cantidad a restar:"), 10);
-
-    const producto = productos.find(p => p.id === idProducto);
-
-    if (producto) {
-        if (!isNaN(cantidadARestar) && cantidadARestar > 0 && producto.cantidad >= cantidadARestar) {
-            producto.cantidad -= cantidadARestar;
-            console.log(`Se han restado ${cantidadARestar} unidades del producto con ID ${idProducto}.`);
-            console.log("Productos actualizados:", productos);
-        } else {
-            alert("Cantidad inválida o insuficiente.");
-        }
-    } else {
-        alert("Producto no encontrado.");
-    }
-} */
-
-/* function sumarUnidades() {
-    const idProducto = parseInt(prompt("Introduce el ID del producto para sumar unidades:"), 10);
-    const cantidadAsumar = parseInt(prompt("Introduce la cantidad a sumar:"), 10);
-
-    const producto = productos.find(p => p.id === idProducto);
-
-    if (producto) {
-        if (!isNaN(cantidadAsumar) && cantidadAsumar > 0 && producto.cantidad >= cantidadAsumar) {
-            producto.cantidad += cantidadAsumar;
-            console.log(`Se han sumado ${cantidadAsumar} unidades del producto con ID ${idProducto}.`);
-            console.log("Productos actualizados:", productos);
-        } else {
-            alert("Cantidad inválida o insuficiente.");
-        }
-    } else {
-        alert("Producto no encontrado.");
-    }
-}
-
-
-if (login()) {
-    gestionProductos();
-}
- */
